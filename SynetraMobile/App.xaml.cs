@@ -1,4 +1,6 @@
-﻿namespace SynetraMobile
+﻿using SynetraMobile.Views;
+
+namespace SynetraMobile
 {
     public partial class App : Application
     {
@@ -6,7 +8,7 @@
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            MainPage = new LoginView();
         }
     }
 }
