@@ -19,7 +19,7 @@ namespace SynetraMobile.Services
 
         public async Task Login(LoginModel model)
         {
-            var httpClient = httpClientFactory.CreateClient("custom-httpclient");
+            var httpClient = httpClientFactory.CreateClient("Auth");
             var result = await httpClient.PostAsJsonAsync("/login", model);
             var response = await result.Content.ReadFromJsonAsync<LoginResponse>();
             if (response is not null)

@@ -6,7 +6,7 @@
              NavigationPage.HasNavigationBar="False">
     
     <Grid
-            BackgroundColor="green"
+            BackgroundColor="blue"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand">
         
@@ -20,14 +20,14 @@
                     Margin="0,30"
                     Aspect="AspectFit"
                     HeightRequest="100"
-                    Source="dotnet_bot.svg"
+                    Source="synetra_logo.png"
                     WidthRequest="80" />
         </StackLayout>
 
         <Frame
                 Grid.Row="1"
                 Margin="0,0,0,-40"
-                BorderColor="green"
+                BorderColor="blue"
                 BackgroundColor="White"
                 CornerRadius="50"
                 HasShadow="True"
@@ -54,13 +54,14 @@
                         FontSize="24"
                         HorizontalOptions="CenterAndExpand"
                         Text="Bienvenue!"
-                        TextColor="Green" />
+                        TextColor="Blue" />
                 <Entry
                         Grid.Row="2"
                         Margin="0,20,0,0"
                         HorizontalOptions="FillAndExpand"
-                        Placeholder="Username"
-                        Text="{Binding UserName}"
+                        Placeholder="Email"
+                        x:Name="Email"
+                        Text="{Binding Email}"
                         VerticalOptions="FillAndExpand" />
                 <Entry
                         Grid.Row="3"
@@ -71,11 +72,16 @@
                         VerticalOptions="FillAndExpand" />
                 <Button
                         Grid.Row="4"
-                        BackgroundColor="Green"
+                        BackgroundColor="Blue"
                         Command="{Binding LoginBtn}"
                         CornerRadius="20"
                         TextColor="White"
                         Text="Login" />
+                <Image
+                    x:Name="UserPictureImg"
+                    SemanticProperties.Description="User's picture"
+                    HeightRequest="200"
+                    HorizontalOptions="Center" />
             </Grid>
         </Frame>
     </Grid>
