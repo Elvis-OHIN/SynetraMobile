@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Net.Http;
 using Auth0.OidcClient;
 using MauiAuth0App;
@@ -11,18 +12,34 @@ namespace SynetraMobile.Views;
 public partial class LoginView : ContentPage
 {
 	private readonly Auth0Client auth0Client;
-	private HttpClient _httpClient;
+    private readonly ClientService clientService = new ClientService();
+    private HttpClient _httpClient;
 	private UserManager _userManager;
-	public LoginView(Auth0Client client, HttpClient httpClient, UserManager userManager)
+	public LoginView()
 	{
 		InitializeComponent();
-		auth0Client = client;
-		_httpClient = httpClient;
-		_userManager = userManager;
 	}
 	private async void LoginButtonClicked(object sender, EventArgs e)
 	{
-		var loginResult = await auth0Client.LoginAsync(new { audience = "<YOUR_API_IDENTIFIER"});
+		LoginModel loginModel = new LoginModel();
+		loginModel.Email = Email.Text;
+		loginModel.Password = Password.Text;
+        var token = await clientService.Login(loginModel);
+
+
+        if (token == true)
+        {
+            var mainPage = new AppShell();
+            NavigationPage.SetHasBackButton(mainPage, false);
+            await Navigation.PushAsync(mainPage);
+        }
+        else
+        {
+            // Affichez un message d'erreur
+            await DisplayAlert("Erreur", "Échec de la connexion", "OK");
+        }
+
+        /*var loginResult = await auth0Client.LoginAsync(new { audience = "https://localhost:7082/login" });
 
 		if (!loginResult.IsError)
 		{
@@ -47,7 +64,7 @@ public partial class LoginView : ContentPage
 		else
 		{
 			await DisplayAlert("Error", loginResult.ErrorDescription, "OK");
-		}
+		}*/
 	}
 	
 	

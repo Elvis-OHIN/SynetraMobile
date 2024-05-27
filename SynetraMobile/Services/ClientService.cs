@@ -6,28 +6,45 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Net.Http;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using IdentityModel.OidcClient;
 
 namespace SynetraMobile.Services
 {
     public class ClientService
     {
-        private readonly IHttpClientFactory httpClientFactory;
-        public ClientService(IHttpClientFactory httpClientFactory)
-        {
-            this.httpClientFactory = httpClientFactory;
-        }
+        private HttpClient httpClient;
+        
 
-        public async Task Login(LoginModel model)
+        public async Task<bool> Login(LoginModel model)
         {
-            var httpClient = httpClientFactory.CreateClient("Auth");
-            var result = await httpClient.PostAsJsonAsync("/login", model);
-            var response = await result.Content.ReadFromJsonAsync<LoginResponse>();
-            if (response is not null)
-            {
-                var serializeResponse = JsonSerializer.Serialize(
-                    new LoginResponse() { AccessToken = response.AccessToken, RefreshToken = response.RefreshToken, Email = model.Email });
-                await SecureStorage.Default.SetAsync("Authentication", serializeResponse);
-            }
+           
+#if DEBUG
+                HttpsClientHandlerService handler = new HttpsClientHandlerService();
+                httpClient = new HttpClient(handler.GetPlatformMessageHandler());
+#else
+                httpClient = new HttpClient();
+#endif
+                string url = "https://10.0.2.2:7082";
+                httpClient.BaseAddress = new Uri(url);
+                var result = await httpClient.PostAsJsonAsync("login", model);
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var jsonResponse = await result.Content.ReadAsStringAsync();
+                    var token = JsonConvert.DeserializeObject<JwtToken>(jsonResponse);
+                    await SecureStorage.Default.SetAsync("access_token", token.AccessToken);
+                    if (token.RefreshToken != null)
+                    {
+                        await SecureStorage.Default.SetAsync("refresh_token", token.RefreshToken);
+                    }
+                    return true;
+                }
+
+                return false;
+            
         }
     }
 }

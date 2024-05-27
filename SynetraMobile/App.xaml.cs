@@ -8,7 +8,7 @@ namespace SynetraMobile
         {
             InitializeComponent();
 
-            MainPage = new LoginView();
+            MainPage = new NavigationPage(new LoginView());
         }
     }
 }
