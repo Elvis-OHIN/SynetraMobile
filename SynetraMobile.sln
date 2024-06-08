@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynetraMobile", "SynetraMobile\SynetraMobile.csproj", "{12AD59C7-1339-4A7C-9B31-3D46484BCF57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynetraMobile", "SynetraMobile\SynetraMobile.csproj", "{12AD59C7-1339-4A7C-9B31-3D46484BCF57}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynetraUtils", "..\SynetraUtils\SynetraUtils\SynetraUtils.csproj", "{F437CFAF-4D77-48CF-AFCD-267948FF4DDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{12AD59C7-1339-4A7C-9B31-3D46484BCF57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12AD59C7-1339-4A7C-9B31-3D46484BCF57}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12AD59C7-1339-4A7C-9B31-3D46484BCF57}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F437CFAF-4D77-48CF-AFCD-267948FF4DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F437CFAF-4D77-48CF-AFCD-267948FF4DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F437CFAF-4D77-48CF-AFCD-267948FF4DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F437CFAF-4D77-48CF-AFCD-267948FF4DDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

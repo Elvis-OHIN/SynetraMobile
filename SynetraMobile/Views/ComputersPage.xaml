@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SynetraMobile.Views.ComputersPage"
+             xmlns:local="clr-namespace:SynetraMobile.ViewModels"
+             Title="ComputersPage"
+             Shell.NavBarIsVisible="False">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" />
+    </Shell.BackButtonBehavior>
+    
+    <ContentPage.BindingContext>
+        <local:ComputerViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <Label Text="Liste des ordinateurs" 
+               FontSize="Large" 
+               HorizontalOptions="Center" />
+        
+        <Picker Title="Filter by Parc" 
+                ItemsSource="{Binding Processors}" 
+                SelectedItem="{Binding SelectedFilter}" />
+        
+        <CollectionView ItemsSource="{Binding Computers}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Vertical" Padding="10">
+                        <Label Text="{Binding Name}" 
+                               FontSize="Medium" />
+                        <Label Text="{Binding IDProduct}" 
+                               FontSize="Small" 
+                               TextColor="Gray" />
+                        <Label Text="{Binding CarteMere}" 
+                               FontSize="Small" 
+                               TextColor="Gray" />
+                        <Label Text="{Binding GPU}" 
+                               FontSize="Small" 
+                               TextColor="Gray" />
+                        <Label Text="{Binding Os}" 
+                                FontSize="Small" 
+                                TextColor="Gray" />
+                        <Label Text="{Binding OperatingSystem}" 
+                           FontSize="Small" 
+                           TextColor="Gray" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

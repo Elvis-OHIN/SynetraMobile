@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SynetraMobile.Views.LoginView"
+             Title="LoginView"
+             NavigationPage.HasNavigationBar="False">
+    
+    <Grid
+            BackgroundColor="blue"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <StackLayout Grid.Row="0" HorizontalOptions="Center">
+            <Image
+                    Margin="0,30"
+                    Aspect="AspectFit"
+                    HeightRequest="100"
+                    Source="synetra_logo.png"
+                    WidthRequest="80" />
+        </StackLayout>
+
+        <Frame
+                Grid.Row="1"
+                Margin="0,0,0,-40"
+                BorderColor="blue"
+                BackgroundColor="White"
+                CornerRadius="50"
+                HasShadow="True"
+                HeightRequest="700">
+            <Grid
+                    Padding="20,50,20,0"
+                    HorizontalOptions="FillAndExpand"
+                    RowSpacing="20"
+                    VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                        Grid.Row="0"
+                        FontAttributes="Bold"
+                        FontSize="24"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Bienvenue!"
+                        TextColor="Blue" />
+                <Entry
+                        Grid.Row="2"
+                        Margin="0,20,0,0"
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="Email"
+                        x:Name="Email"
+                        Text="{Binding Email}"
+                        VerticalOptions="FillAndExpand" />
+                <Entry
+                        Grid.Row="3"
+                        HorizontalOptions="FillAndExpand"
+                        IsPassword="True"
+                        x:Name="Password"
+                        Placeholder="Password"
+                        Text="{Binding Password}"
+                        VerticalOptions="FillAndExpand" />
+                <Button
+                        Grid.Row="4"
+                        BackgroundColor="Blue"
+                        Clicked="LoginButtonClicked"
+                        CornerRadius="20"
+                        TextColor="White"
+                        Text="Login" />
+                <Image
+                    x:Name="UserPictureImg"
+                    SemanticProperties.Description="User's picture"
+                    HeightRequest="200"
+                    HorizontalOptions="Center" />
+            </Grid>
+        </Frame>
+    </Grid>
+</ContentPage>
