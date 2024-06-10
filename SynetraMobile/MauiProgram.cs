@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MauiIcons.Cupertino;
+using MauiIcons.SegoeFluent;
+using Microsoft.Extensions.Logging;
 using SynetraMobile.Services;
 using SynetraMobile.ViewModels;
 
@@ -11,11 +13,15 @@ namespace SynetraMobile
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseSegoeFluentMauiIcons()
+                .UseCupertinoMauiIcons()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                   
                 });
+
             
 #if DEBUG
             builder.Logging.AddDebug();

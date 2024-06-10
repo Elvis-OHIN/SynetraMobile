@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SynetraMobile.Views.ComputersPage"
              xmlns:local="clr-namespace:SynetraMobile.ViewModels"
+             xmlns:mi="http://www.aathifmahir.com/dotnet/2022/maui/icons"
              Title="ComputersPage"
              Shell.NavBarIsVisible="False">
     <Shell.BackButtonBehavior>
@@ -13,6 +14,27 @@
         <local:ComputerViewModel />
     </ContentPage.BindingContext>
 
+    <ContentPage.Resources>
+        <!-- Définition des styles -->
+        <Style x:Key="PCItemStyle" TargetType="Frame">
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="HasShadow" Value="True" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="BackgroundColor" Value="#f0f0f0" />
+        </Style>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="#333333" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style x:Key="TitleLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="#1a73e8" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+    </ContentPage.Resources>
+
+
     <StackLayout>
         <Label Text="Liste des ordinateurs" 
                FontSize="Large" 
@@ -22,28 +44,47 @@
                 ItemsSource="{Binding Processors}" 
                 SelectedItem="{Binding SelectedFilter}" />
         
-        <CollectionView ItemsSource="{Binding Computers}">
+        <CollectionView ItemsSource="{Binding GroupComputer}" IsGrouped="true">
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <Label BackgroundColor="LightGray" Text="{Binding Room}" FontSize="18" FontAttributes="Bold" />
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Orientation="Vertical" Padding="10">
-                        <Label Text="{Binding Name}" 
-                               FontSize="Medium" />
-                        <Label Text="{Binding IDProduct}" 
-                               FontSize="Small" 
-                               TextColor="Gray" />
-                        <Label Text="{Binding CarteMere}" 
-                               FontSize="Small" 
-                               TextColor="Gray" />
-                        <Label Text="{Binding GPU}" 
-                               FontSize="Small" 
-                               TextColor="Gray" />
-                        <Label Text="{Binding Os}" 
-                                FontSize="Small" 
-                                TextColor="Gray" />
-                        <Label Text="{Binding OperatingSystem}" 
-                           FontSize="Small" 
-                           TextColor="Gray" />
-                    </StackLayout>
+                    <Frame Style="{StaticResource PCItemStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <mi:MauiIcon Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Margin="0,0,20,0" Icon="{mi:Cupertino Icon=Desktopcomputer , IconSize=60}">
+                                <mi:MauiIcon.Triggers>
+                                    <DataTrigger TargetType="mi:MauiIcon" Binding="{Binding Statut}" Value="True">
+                                        <Setter Property="IconColor" Value="Green"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="mi:MauiIcon" Binding="{Binding Statut}" Value="False">
+                                        <Setter Property="IconColor" Value="Red"/>
+                                    </DataTrigger>
+                                </mi:MauiIcon.Triggers>
+                            </mi:MauiIcon>
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource TitleLabelStyle}" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding IDProduct}" Style="{StaticResource LabelStyle}" />
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding CarteMere}" Style="{StaticResource LabelStyle}" />
+                            <Label Grid.Row="3" Grid.Column="1" Text="{Binding GPU}" Style="{StaticResource LabelStyle}" />
+                            <Label Grid.Row="4" Grid.Column="1" Text="{Binding Os}" Style="{StaticResource LabelStyle}" />
+                            <Label Grid.Row="5" Grid.Column="1" Text="{Binding OperatingSystem}" Style="{StaticResource LabelStyle}" />
+                        </Grid>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
