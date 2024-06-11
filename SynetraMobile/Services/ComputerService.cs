@@ -24,7 +24,7 @@ namespace SynetraMobile.Services
 
         public async Task<List<Computer>> GetComputersAsync()
         {
-            var token = await SecureStorage.Default.GetAsync("access_token");
+            var token = Task.Run(async () => await SecureStorage.Default.GetAsync("access_token")).Result;
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var url = $"{Config.ApiBaseUrl}/api/Computers";
             var response = await _httpClient.GetStringAsync(url);
@@ -33,13 +33,11 @@ namespace SynetraMobile.Services
 
         public async Task<List<Computer>> GetAllByParcAsync(int id)
         {
-            List<Computer> computers = new List<Computer>();
-            var token = await SecureStorage.Default.GetAsync("access_token");
+            var token = Task.Run(async () => await SecureStorage.Default.GetAsync("access_token")).Result;
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var url = $"{Config.ApiBaseUrl}/api/Computers/Parc/{id}";
-            var Response = await _httpClient.GetFromJsonAsync<List<Computer>>(url);
-            computers = Response.ToList();
-            return computers;
+            var Response = Task.Run(async () => await _httpClient.GetStringAsync(url)).Result;
+            return JsonConvert.DeserializeObject<List<Computer>>(Response); 
         }
     }
 }

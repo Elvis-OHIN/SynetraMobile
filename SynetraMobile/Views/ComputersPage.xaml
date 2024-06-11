@@ -15,7 +15,7 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Resources>
-        <!-- Définition des styles -->
+  
         <Style x:Key="PCItemStyle" TargetType="Frame">
             <Setter Property="CornerRadius" Value="10" />
             <Setter Property="HasShadow" Value="True" />
@@ -40,9 +40,10 @@
                FontSize="Large" 
                HorizontalOptions="Center" />
         
-        <Picker Title="Filter by Parc" 
-                ItemsSource="{Binding Processors}" 
-                SelectedItem="{Binding SelectedFilter}" />
+        <Picker Title="Filter par Parc" 
+                ItemsSource="{Binding Parcs}" 
+                SelectedItem="{Binding SelectedFilter}" 
+                SelectedIndexChanged="OnParcSelected"/>
         
         <CollectionView ItemsSource="{Binding GroupComputer}" IsGrouped="true">
             <CollectionView.GroupHeaderTemplate>

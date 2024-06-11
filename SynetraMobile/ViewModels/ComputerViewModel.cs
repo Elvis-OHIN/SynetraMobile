@@ -64,20 +64,27 @@ namespace SynetraMobile.ViewModels
 
         private async void LoadPCs()
         {
-            Computers = await _computerService.GetComputersAsync();
             Parcs = await _parcService.GetParcAsync();
+            if (Parcs.Count > 0)
+            {
+                SelectedFilter = Parcs.FirstOrDefault();
+                if(SelectedFilter is null)
+                {
+                    Computers = await _computerService.GetComputersAsync();
+                }
+            }
             var groupedPCs = Computers
             .GroupBy(pc => pc.RoomId)
             .ToList();
 
-
+            GroupComputer.Clear();
             GroupByRoom(Computers);
           
 
         }
         private async void GroupByRoom(List<Computer> computers)
         {
-            var rooms = await _roomService.GetRoomAsync();
+            var rooms = await _roomService.GetAllByParcAsync(SelectedFilter.Id);
             foreach (var room in rooms)
             {
                 var groupComputers = new List<Computer>();
@@ -93,13 +100,15 @@ namespace SynetraMobile.ViewModels
         }
         public async void FilterBy(Parc filter)
         {
-            if (filter is null)
+            if (filter is not null)
             {
-                Computers = new List<Computer>(_computers);
+                Computers = await _computerService.GetAllByParcAsync(filter.Id);
+                GroupComputer.Clear();
+                GroupByRoom(Computers);
             }
             else
             {
-                Computers = await _computerService.GetAllByParcAsync(filter.Id);
+                Computers = new List<Computer>(_computers);
             }
         }
 
