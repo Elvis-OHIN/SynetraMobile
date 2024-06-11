@@ -58,20 +58,26 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\computer.png" />
+	  <None Remove="Resources\Images\parc_info.png" />
 	  <None Remove="Resources\Images\room.png" />
 	  <None Remove="Resources\Images\school.png" />
+	  <None Remove="Resources\Images\synetra_logo_login.png" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Core" Version="3.0.0" />
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Cupertino" Version="3.0.0" />
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.Fluent" Version="3.0.0" />
+		<PackageReference Include="AathifMahir.Maui.MauiIcons.SegoeFluent" Version="3.0.0" />
 		<PackageReference Include="Auth0.OidcClient.MAUI" Version="1.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="IdentityModel.OidcClient.IdentityTokenValidator" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.10" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.10" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Maui.Controls.Core" Version="8.0.10" />
-		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.10" />
+		<PackageReference Include="Microsoft.Maui.Controls.Core" Version="8.0.40" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.40" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 

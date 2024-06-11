@@ -1,43 +1,39 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SynetraUtils.Models.DataManagement;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using SynetraUtils.Models.DataManagement;
 
 namespace SynetraMobile.Services
 {
-    class ComputerService
+    class RoomService
     {
         private readonly HttpClient _httpClient;
 
-        public ComputerService()
+        public RoomService()
         {
             HttpsClientHandlerService handler = new HttpsClientHandlerService();
             _httpClient = new HttpClient(handler.GetPlatformMessageHandler());
         }
 
-        public async Task<List<Computer>> GetComputersAsync()
+        public async Task<List<Room>> GetRoomAsync()
         {
-            var token = Task.Run(async () => await SecureStorage.Default.GetAsync("access_token")).Result;
+            var token = await SecureStorage.Default.GetAsync("access_token");
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var url = $"{Config.ApiBaseUrl}/api/Computers";
+            var url = $"{Config.ApiBaseUrl}/api/Rooms";
             var response = await _httpClient.GetStringAsync(url);
-            return JsonConvert.DeserializeObject<List<Computer>>(response);
+            return JsonConvert.DeserializeObject<List<Room>>(response);
         }
-
-        public async Task<List<Computer>> GetAllByParcAsync(int id)
+        public async Task<List<Room>> GetAllByParcAsync(int id)
         {
             var token = Task.Run(async () => await SecureStorage.Default.GetAsync("access_token")).Result;
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var url = $"{Config.ApiBaseUrl}/api/Computers/Parc/{id}";
+            var url = $"{Config.ApiBaseUrl}/api/Rooms/Parc/{id}";
             var Response = Task.Run(async () => await _httpClient.GetStringAsync(url)).Result;
-            return JsonConvert.DeserializeObject<List<Computer>>(Response); 
+            return JsonConvert.DeserializeObject<List<Room>>(Response);
         }
     }
 }
