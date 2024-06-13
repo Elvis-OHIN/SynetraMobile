@@ -36,10 +36,7 @@
 
 
     <StackLayout>
-        <Label Text="Liste des ordinateurs" 
-               FontSize="Large" 
-               HorizontalOptions="Center" />
-        
+       
         <Picker Title="Filter par Parc" 
                 ItemsSource="{Binding Parcs}" 
                 SelectedItem="{Binding SelectedFilter}" 

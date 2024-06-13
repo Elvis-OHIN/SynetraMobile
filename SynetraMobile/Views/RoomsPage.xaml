@@ -3,14 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SynetraMobile.Views.RoomsPage"
              Title="RoomsPage"
+             xmlns:local="clr-namespace:SynetraMobile.ViewModels"
              Shell.NavBarIsVisible="False">
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior IsVisible="False" />
-    </Shell.BackButtonBehavior>
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ContentPage.BindingContext>
+        <local:RoomViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+
+        <Picker Title="Filter par Parc" 
+             ItemsSource="{Binding Parcs}" 
+             SelectedItem="{Binding SelectedFilter}" 
+             SelectedIndexChanged="OnParcSelected"/>
+
+        <CollectionView ItemsSource="{Binding Rooms}" VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Frame BackgroundColor="#eee" Padding="10" Margin="10">
+                        <VerticalStackLayout>
+
+                            <HorizontalStackLayout>
+                                <Label Text="Salle: " ></Label>
+                                <Label Text="{Binding Name}" ></Label>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout>
+                                <Label Text="Disponible: " ></Label>
+                                <Label Text="{Binding IsActive}" ></Label>
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </ContentPage>
