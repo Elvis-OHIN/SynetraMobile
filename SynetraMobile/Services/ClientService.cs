@@ -24,9 +24,9 @@ namespace SynetraMobile.Services
                 HttpsClientHandlerService handler = new HttpsClientHandlerService();
                 httpClient = new HttpClient(handler.GetPlatformMessageHandler());
 
-                string url = "https://10.0.2.2:7082";
-                httpClient.BaseAddress = new Uri(url);
-                var result = await httpClient.PostAsJsonAsync("login", model);
+                //string url = "https://10.0.2.2:7082";
+                //httpClient.BaseAddress = new Uri(url);
+                var result = await httpClient.PostAsJsonAsync($"{Config.ApiBaseUrl}/login", model);
 
                 if (result.IsSuccessStatusCode)
                 {

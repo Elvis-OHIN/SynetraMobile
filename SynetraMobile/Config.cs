@@ -8,6 +8,6 @@ namespace SynetraMobile
 {
     class Config
     {
-        public static string ApiBaseUrl = "https://10.0.2.2:7082";
+        public static string ApiBaseUrl = "https://tsc3.therasoft.fr/api_elvis";
     }
 }
