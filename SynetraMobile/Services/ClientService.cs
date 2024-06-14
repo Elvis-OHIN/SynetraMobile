@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using IdentityModel.OidcClient;
+using System.Net.Http.Headers;
 
 namespace SynetraMobile.Services
 {
@@ -23,6 +24,7 @@ namespace SynetraMobile.Services
 
                 HttpsClientHandlerService handler = new HttpsClientHandlerService();
                 httpClient = new HttpClient(handler.GetPlatformMessageHandler());
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                 //string url = "https://10.0.2.2:7082";
                 //httpClient.BaseAddress = new Uri(url);

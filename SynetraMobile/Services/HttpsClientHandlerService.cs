@@ -14,7 +14,7 @@ namespace SynetraMobile.Services
         var handler = new Xamarin.Android.Net.AndroidMessageHandler();
         handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
         {
-            if (cert != null && cert.Issuer.Equals("CN=localhost"))
+            if (cert != null)
                 return true;
             return errors == System.Net.Security.SslPolicyErrors.None;
         };
