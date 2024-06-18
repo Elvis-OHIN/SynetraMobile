@@ -17,7 +17,9 @@ namespace SynetraMobile.ViewModels
         private readonly ComputerService _computerService;
         private readonly ParcService _parcService;
         private readonly RoomService _roomService;
+        private readonly UserService _userService;
         private List<Computer> _computers;
+        private bool _isAuthorize;
         private List<Parc> _parcs;
         private Parc _selectedFilter;
         public ObservableCollection<GroupedComputers> GroupComputer { get; private set; } = new ObservableCollection<GroupedComputers>();
@@ -52,19 +54,42 @@ namespace SynetraMobile.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        public bool IsAuthorize
+        {
+            get => _isAuthorize;
+            set
+            {
+                _isAuthorize = value;
+                OnPropertyChanged();
+            }
+        }
         public ComputerViewModel()
         {
             _computerService = new ComputerService();
             _parcService = new ParcService();
             _roomService = new RoomService();
+            _userService = new UserService();
             LoadPCs();
 
         }
 
         private async void LoadPCs()
         {
-            Parcs = await _parcService.GetParcAsync();
+            var user = await _userService.GetMe();
+            if (user is not null)
+            {
+                if (user.ParcId != null)
+                {
+                    Parcs = new List<Parc>();
+                    Parcs.Add(new Parc { Id = (int)user.ParcId});
+                    IsAuthorize = false;
+                }
+            }
+            else
+            {
+                Parcs = await _parcService.GetParcAsync();
+                IsAuthorize = true;
+            }
             if (Parcs.Count > 0)
             {
                 SelectedFilter = Parcs.FirstOrDefault();
