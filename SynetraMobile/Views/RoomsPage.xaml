@@ -12,8 +12,9 @@
 
     <StackLayout>
 
-        <Picker Title="Filter par Parc" 
-             ItemsSource="{Binding Parcs}" 
+        <Picker x:Name="Filter" Title="Filter par Parc" 
+             ItemsSource="{Binding Parcs}"
+             IsVisible="{Binding IsAuthorize}"
              SelectedItem="{Binding SelectedFilter}" 
              SelectedIndexChanged="OnParcSelected"/>
 

@@ -11,9 +11,9 @@
 
 
     <TabBar>
-        <Tab Title="Parc"
+        <Tab IsVisible="False"  x:Name="Parc" Title="Parc"
             Icon="school.png">
-            <ShellContent ContentTemplate="{DataTemplate views:ParcsPage}" />
+            <ShellContent IsVisible="False"  x:Name="ViewParc" ContentTemplate="{DataTemplate views:ParcsPage}" />
         </Tab>
         <Tab Title="Salle"
             Icon="room.png">

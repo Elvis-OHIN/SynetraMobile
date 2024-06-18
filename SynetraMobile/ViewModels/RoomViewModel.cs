@@ -14,7 +14,9 @@ namespace SynetraMobile.ViewModels
     {
         private readonly ParcService _parcService;
         private readonly RoomService _roomService;
+        private readonly UserService _userService;
         private Parc _selectedFilter;
+        private bool _isAuthorize;
         private List<Room> _rooms;
         private List<Parc> _parcs;
 
@@ -47,16 +49,42 @@ namespace SynetraMobile.ViewModels
             }
         }
 
+        public bool IsAuthorize
+        {
+            get => _isAuthorize;
+            set
+            {
+                _isAuthorize = value;
+                OnPropertyChanged();
+            }
+        }
+
         public RoomViewModel()
         {
             _parcService = new ParcService();
             _roomService = new RoomService();
+            _userService = new UserService();
             LoadRooms();
         }
 
         private async void LoadRooms()
         {
-            Parcs = await _parcService.GetParcAsync();
+            var user = await _userService.GetMe();
+            if (user is not null)
+            {
+                if (user.ParcId != null)
+                {
+                    Parcs = new List<Parc>();
+                    Parcs.Add(new Parc { Id = (int)user.ParcId });
+                    IsAuthorize = false;
+                }
+            }
+            else
+            {
+                IsAuthorize = true;
+                Parcs = await _parcService.GetParcAsync();
+            }
+         
             if (Parcs.Count > 0)
             {
                 SelectedFilter = Parcs.FirstOrDefault();
