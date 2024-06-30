@@ -78,13 +78,14 @@ namespace SynetraMobile.ViewModels
                     Parcs.Add(new Parc { Id = (int)user.ParcId });
                     IsAuthorize = false;
                 }
+                else
+                {
+                    IsAuthorize = true;
+                    Parcs = await _parcService.GetParcAsync();
+                }
             }
-            else
-            {
-                IsAuthorize = true;
-                Parcs = await _parcService.GetParcAsync();
-            }
-         
+            
+            
             if (Parcs.Count > 0)
             {
                 SelectedFilter = Parcs.FirstOrDefault();
